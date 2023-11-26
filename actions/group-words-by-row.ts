@@ -12,7 +12,7 @@ const groupWordsByRows = (words: PDFExtractText[]) => {
 
   // Group words by height position (y)
   words.forEach((word) => {
-    const rowKey = word.y;
+    const rowKey = word.y.toFixed(2);
 
     if (!groupedRows[rowKey]) {
       groupedRows[rowKey] = [];
