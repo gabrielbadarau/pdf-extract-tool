@@ -10,7 +10,7 @@ const extractTemplate1 = (pdf: PDFExtractResult) => {
 
   const billInfo = extractBillInfo(pages[0].content);
   const billReferinta = extractBillReferinta(pages[0].content);
-  const billLines = extractBillLines(pages[2].content);
+  const billLines = extractBillLines(pages);
 
   const words = groupWordsByRows(pages[0].content);
 
