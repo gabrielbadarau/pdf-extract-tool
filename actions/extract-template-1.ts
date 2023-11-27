@@ -14,7 +14,7 @@ const extractTemplate1 = (pdf: PDFExtractResult) => {
 
   const words = groupWordsByRows(pages[0].content);
 
-  return billInfo;
+  return billReferinta;
 };
 
 export default extractTemplate1;

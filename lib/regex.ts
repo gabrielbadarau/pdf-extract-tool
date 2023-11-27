@@ -14,8 +14,10 @@ export const stornareFacturaNrRegex =
   /Stornare\s*factura\s*nr\s*.?\s*:?\s*(\d+)/;
 
 // Bill referinta
+export const findBeginingOfReferinta =
+  /Referinta\s*furnizor\s*Din\s*data\s*:?\s*Referinta\s*client\s*Din\s*data\s*:?/;
 export const referintaLineRegex =
-  /^([^.]+)\s?(\d{2}\.\d{2}\.\d{4})\s?([^.]+)\s?(\d{2}\.\d{2}\.\d{4})?$/;
+  /^(\d+)\s*(\d{2}\.\d{2}\.\d{4})?\s*([^.]+)\s*(\d{2}\.\d{2}\.\d{4})?$/;
 
 // Bill lines
 export const firstLineRegex = /^(\d{6})\s+(\S+)\s+(.+)\s+(\d+)\s+([A-Z]{2})$/;

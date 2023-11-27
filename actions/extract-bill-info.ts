@@ -21,47 +21,47 @@ export const extractBillInfo = (data: PDFExtractText[]) => {
     (prev, curr) => {
       const matchSerieFactura = curr.match(serieFacturaRegex);
       if (matchSerieFactura?.length) {
-        prev.serieFactura = matchSerieFactura[1];
+        prev.serieFactura = matchSerieFactura[1].trim();
       }
 
       const matchNumarFactura = curr.match(numarFacturaRegex);
       if (matchNumarFactura?.length) {
-        prev.numarFactura = matchNumarFactura[1];
+        prev.numarFactura = matchNumarFactura[1].trim();
       }
 
       const matchDataFactura = curr.match(dataFacturaRegex);
       if (matchDataFactura?.length) {
-        prev.dataFactura = matchDataFactura[1];
+        prev.dataFactura = matchDataFactura[1].trim();
       }
 
       const matchMoneda = curr.match(monedaRegex);
       if (matchMoneda?.length) {
-        prev.moneda = matchMoneda[1];
+        prev.moneda = matchMoneda[1].trim();
       }
 
       const matchCodCumparator = curr.match(codCumparatorRegex);
       if (matchCodCumparator?.length) {
-        prev.codCumparator = matchCodCumparator[1];
+        prev.codCumparator = matchCodCumparator[1].trim();
       }
 
       const matchCifFurnizor = curr.match(cifFurnizorRegex);
       if (matchCifFurnizor?.length) {
-        prev.cifFurnizor = matchCifFurnizor[1];
+        prev.cifFurnizor = matchCifFurnizor[1].trim();
       }
 
       const matchCifCumparator = curr.match(cifCumparatorRegex);
       if (matchCifCumparator?.length) {
-        prev.cifCumparator = matchCifCumparator[1];
+        prev.cifCumparator = matchCifCumparator[1].trim();
       }
 
       const matchNrRegComCumparator = curr.match(nrRegComCumparatorRegex);
       if (matchNrRegComCumparator?.length) {
-        prev.nrRegComCumparator = matchNrRegComCumparator[1];
+        prev.nrRegComCumparator = matchNrRegComCumparator[1].trim();
       }
 
       const matchStornareFacturaNr = curr.match(stornareFacturaNrRegex);
       if (matchStornareFacturaNr?.length) {
-        prev.stornareFacturaNr = matchStornareFacturaNr[1];
+        prev.stornareFacturaNr = matchStornareFacturaNr[1].trim();
       }
 
       return prev;
