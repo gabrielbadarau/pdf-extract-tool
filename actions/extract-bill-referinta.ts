@@ -2,7 +2,7 @@ import { PDFExtractText } from 'pdf.js-extract';
 
 import groupWordsByRows from '@/actions/group-words-by-row';
 import { BillReferinta } from '@/lib/types';
-import { findBeginingOfReferinta, referintaLineRegex } from '@/lib/regex';
+import { findBeginingOfReferintaRegex, referintaLineRegex } from '@/lib/regex';
 
 const extractBillReferinta = (data: PDFExtractText[]) => {
   const words = groupWordsByRows(data);
@@ -25,7 +25,7 @@ const extractBillReferinta = (data: PDFExtractText[]) => {
         isReferintaLine = false;
       }
 
-      if (curr.match(findBeginingOfReferinta)?.length) {
+      if (curr.match(findBeginingOfReferintaRegex)?.length) {
         isReferintaLine = true;
       }
 

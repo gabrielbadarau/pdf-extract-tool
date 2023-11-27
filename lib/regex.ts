@@ -14,16 +14,18 @@ export const stornareFacturaNrRegex =
   /Stornare\s*factura\s*nr\s*.?\s*:?\s*(\d+)/;
 
 // Bill referinta
-export const findBeginingOfReferinta =
+export const findBeginingOfReferintaRegex =
   /Referinta\s*furnizor\s*Din\s*data\s*:?\s*Referinta\s*client\s*Din\s*data\s*:?/;
 export const referintaLineRegex =
-  /^(\d+)\s*(\d{2}\.\d{2}\.\d{4})?\s*([^.]+)\s*(\d{2}\.\d{2}\.\d{4})?$/;
+  /^(\d+)\s+(\d{2}\.\d{2}\.\d{4})?\s?([^.]+)\s?(\d{2}\.\d{2}\.\d{4})?$/;
 
 // Bill lines
-export const firstLineRegex = /^(\d{6})\s+(\S+)\s+(.+)\s+(\d+)\s+([A-Z]{2})$/;
+export const firstLineRegex =
+  /^(\d{6})\s+([A-Z_.0-9]+)\s+(.+)\s+(\d+)\s+([A-Z]+)$/;
 export const secondLineRegex =
-  /^(.+\d?\s)?(-?\d+(\.\d+)?,\d+)\s+(-?\d+(\.\d+)?,\d+)\s+([A-Z]{3})$/;
-export const thirdLineRegex = /^([A-Z]{2})\s+(\d+)$/;
+  /^([A-Z0-9][^,. ]+)?\s?(-?\d+(\.\d+)*,\d+)\s+(-?\d+(\.\d+)*,\d+)\s+([A-Z]+)$/;
+export const thirdLineRegex = /^([A-Z]+)?\s+(\d+)?$/;
+export const findStartOfSumaRegex = /Suma\s*neta\s*totala/;
 
 // Bill suma
 export const firstLineSumaRegex = /^Suma neta totala\s?(-?\d+(\.\d+)?,\d+)$/;

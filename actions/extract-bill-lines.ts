@@ -2,7 +2,12 @@ import { PDFExtractPage, PDFExtractText } from 'pdf.js-extract';
 
 import groupWordsByRows from '@/actions/group-words-by-row';
 import { BillLine } from '@/lib/types';
-import { firstLineRegex, secondLineRegex, thirdLineRegex } from '@/lib/regex';
+import {
+  findStartOfSumaRegex,
+  firstLineRegex,
+  secondLineRegex,
+  thirdLineRegex,
+} from '@/lib/regex';
 
 const extractBillLines = (pages: PDFExtractPage[]) => {
   const allLines = pages.reduce((finalArray, curentPage) => {
@@ -13,10 +18,10 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
     let line: BillLine = {
       linePosition: null,
       lineId: null,
-      lineClientId: null,
       lineDescription: null,
       lineQuantity: null,
       lineUM: null,
+      lineClientId: null,
       linePrice: null,
       lineValue: null,
       lineCurrency: null,
@@ -29,8 +34,8 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
       if (lineStep >= 4) {
         // we check to see if we have a new begining of line => no more additional info
         if (curr.match(firstLineRegex)?.length) {
-          lineStep = 1;
-          // push object and reset values after
+          console.log('step 4 match, but first line', curr);
+          // push object and reset values after, the code will execute at step 1 later in the code
           prev.push({ ...line });
           for (const property in line) {
             if (line.hasOwnProperty(property)) {
@@ -39,7 +44,7 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
           }
         } else if (
           // we check to see if it's the end of line => set lineStep to zero
-          curr.toLowerCase().includes('suma neta') ||
+          curr.match(findStartOfSumaRegex)?.length ||
           curr.toLowerCase().includes('furnizor')
         ) {
           {
@@ -68,20 +73,54 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
       if (lineStep === 3) {
         const matchThirdLine = curr.match(thirdLineRegex);
 
+        lineStep = 4;
+
         if (matchThirdLine?.length) {
+          // normal flow
           line.lineOriginCountry = matchThirdLine[1]?.trim() || null;
           line.lineVamalCode = matchThirdLine[2]?.trim() || null;
-        } else {
-          // safety for when the lineStep 3 is missing entirely but possibly starts additional info right away
-          // we check again if it's not a first line or end of lines => means it's additional info
+        } else if (
+          // safety for when the lineStep 3 is missing entirely but possibly starts additional info right away or a first line
+          // if that's the case then we have additional
+          // if not, we save the line into the array and set the right step
+          !curr.match(findStartOfSumaRegex)?.length ||
+          !curr.toLowerCase().includes('furnizor') ||
+          !curr.match(firstLineRegex)
+        ) {
           if (line.lineAdditionalInfo) {
             line.lineAdditionalInfo = line.lineAdditionalInfo + curr;
           } else {
             line.lineAdditionalInfo = curr;
           }
-        }
+        } else {
+          // we are either at end of lines or at the beggining of a new one, so we save the current line
+          // push object and reset values
+          prev.push({ ...line });
+          for (const property in line) {
+            if (line.hasOwnProperty(property)) {
+              line[property as keyof BillLine] = null;
+            }
+          }
 
-        lineStep = 4;
+          // now we see where we are so that we can setup the next line or not
+          if (curr.match(findStartOfSumaRegex)?.length) {
+            // this means we skipped directly to step one and we copy and paste what we do at step one
+            const matchFirstLine = curr.match(firstLineRegex);
+
+            if (matchFirstLine?.length) {
+              line.linePosition = matchFirstLine[1]?.trim() || null;
+              line.lineId = matchFirstLine[2]?.trim() || null;
+              line.lineDescription = matchFirstLine[3]?.trim() || null;
+              line.lineQuantity = matchFirstLine[4]?.trim() || null;
+              line.lineUM = matchFirstLine[5]?.trim() || null;
+            }
+
+            lineStep = 2;
+          } else {
+            // we are the end of the lines
+            lineStep = 0;
+          }
+        }
       }
 
       if (lineStep === 2) {
@@ -98,8 +137,7 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
       }
 
       if (curr.match(firstLineRegex)?.length) {
-        // this means lineStep is at 1
-        lineStep = 1;
+        // this means line is at step 1
 
         const matchFirstLine = curr.match(firstLineRegex);
 
