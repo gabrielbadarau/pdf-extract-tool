@@ -24,6 +24,7 @@ export interface BillReferinta {
 export interface BillLine {
   linePosition: string | null;
   lineId: string | null;
+  lineClientId: string | null;
   lineDescription: string | null;
   lineQuantity: string | null;
   lineUM: string | null;

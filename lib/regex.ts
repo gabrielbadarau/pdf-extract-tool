@@ -17,7 +17,7 @@ export const referintaLineRegex =
 // Bill lines
 export const firstLineRegex = /^(\d{6})\s+(\S+)\s+(.+)\s+(\d+)\s+([A-Z]{2})$/;
 export const secondLineRegex =
-  /^(-?\d+(\.\d+)?,\d+)\s+(-?\d+(\.\d+)?,\d+)\s+([A-Z]{3})$/;
+  /^(.+\d?\s)??(-?\d+(\.\d+)?,\d+)\s+(-?\d+(\.\d+)?,\d+)\s+([A-Z]{3})$/;
 export const thirdLineRegex = /^([A-Z]{2})\s+(\d+)$/;
 
 // Bill suma

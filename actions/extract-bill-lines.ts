@@ -13,6 +13,7 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
     let line: BillLine = {
       linePosition: null,
       lineId: null,
+      lineClientId: null,
       lineDescription: null,
       lineQuantity: null,
       lineUM: null,
@@ -70,6 +71,14 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
         if (matchThirdLine?.length) {
           line.lineOriginCountry = matchThirdLine[1]?.trim() || null;
           line.lineVamalCode = matchThirdLine[2]?.trim() || null;
+        } else {
+          // safety for when the lineStep 3 is missing entirely but possibly starts additional info right away
+          // we check again if it's not a first line or end of lines => means it's additional info
+          if (line.lineAdditionalInfo) {
+            line.lineAdditionalInfo = line.lineAdditionalInfo + curr;
+          } else {
+            line.lineAdditionalInfo = curr;
+          }
         }
 
         lineStep = 4;
@@ -79,9 +88,10 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
         const matchSecondLine = curr.match(secondLineRegex);
 
         if (matchSecondLine?.length) {
-          line.linePrice = matchSecondLine[1]?.trim() || null;
-          line.lineValue = matchSecondLine[3]?.trim() || null;
-          line.lineCurrency = matchSecondLine[5]?.trim() || null;
+          line.lineClientId = matchSecondLine[1]?.trim() || null;
+          line.linePrice = matchSecondLine[2]?.trim() || null;
+          line.lineValue = matchSecondLine[4]?.trim() || null;
+          line.lineCurrency = matchSecondLine[6]?.trim() || null;
         }
 
         lineStep = 3;
