@@ -28,21 +28,22 @@ export const thirdLineRegex = /^([A-Z]+)?\s+(\d+)?$/;
 export const findStartOfSumaRegex = /Suma\s*neta\s*totala/;
 
 // Bill suma
-export const firstLineSumaRegex = /^Suma neta totala\s?(-?\d+(\.\d+)?,\d+)$/;
+export const firstLineSumaRegex =
+  /Suma\s*neta\s*totala\s*(-?\s*\d+(\.\d+)*,\d+)/;
 export const secondLineSumaRegex =
-  /^TVA Cota:\s?(-?\d+(\.\d+)?,\d+\s?%)\s?Valoare fara TVA:\s?(-?\d+(\.\d+)?,\d+)\s?(-?\d+(\.\d+)?,\d+)$/;
+  /TVA\s*Cota\s*:?\s*(\d+(\.\d+)*,\d+)\s*%\s*Valoare\s*fara\s*TVA\s*:?\s*(-?\s*\d+(\.\d+)*,\d+)\s*(-?\s*\d+(\.\d+)*,\d+)/;
 export const thirdLineSumaRegex =
-  /^Suma de plata\s?(-?\d+(\.\d+)?,\d+)\s?([A-Z]{3})$/;
+  /Suma\s*de\s*plata\s*:?(-?\s*\d+(\.\d+)*,\d+)\s*([A-Z]+)/;
 
 // Other bill suma related fields
 export const greutateBrutaRegex =
-  /Greutate bruta\s*:?\s*(\d+(\.\d+)?,\d+)\s*([A-Z]{2})/;
+  /Greutate\s*bruta\s*:?\s*(\d+(\.\d+)*,\d+)\s*([A-Z]+)/;
 export const greutateNetaRegex =
-  /Greutate neta\s*:?\s*(\d+(\.\d+)?,\d+)\s*([A-Z]{2})/;
-export const volumRegex = /Volum\s*:?\s*(\d+(\.\d+)?(\.\d+)?,\d+)\s*(.+)/;
-export const endDateOfPay =
-  /Conditii\s*de\s*plata\s*:?\s*Pâna\s*la\s*?(\d{2}\.\d{2}\.\d{4})/;
+  /Greutate\s*neta\s*:?\s*(\d+(\.\d+)*,\d+)\s*([A-Z]+)/;
+export const volumRegex = /Volum\s*:?\s*(\d+(\.\d+)*,\d+)\s*([A-Z0-9]+)/;
+export const endDateOfPayRegex =
+  /Conditii\s*de\s*plata\s*:?\s*Până\s*la\s*(\d{2}\.\d{2}\.\d{4})/;
 export const conditiiDeLivrare = /Conditii\s*de\s*livrare\s*:?\s*(.+)/;
 export const complicatedTaraDeOrigineLineRegex =
-  /([A-Z]*)\s*([A-Za-z ]*)\s*(Greutate|Volum)(.+)?/;
-export const simpleTaraDeOrigineLineRegex = /([A-Z]*)\s*([A-Za-z ]*)\s*/;
+  /([A-Z]+)\s*([A-Za-z ]+)\s*(Greutate|Volum)(.+)?/;
+export const simpleTaraDeOrigineLineRegex = /([A-Z]+)\s*([A-Za-z ]+)/;

@@ -12,9 +12,9 @@ const extractTemplate1 = (pdf: PDFExtractResult) => {
   const billReferinta = extractBillReferinta(pages[0].content);
   const billLines = extractBillLines(pages);
 
-  const words = groupWordsByRows(pages[1].content);
+  const words = groupWordsByRows(pages[14].content);
 
-  return billReferinta;
+  return words;
 };
 
 export default extractTemplate1;

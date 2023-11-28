@@ -6,7 +6,9 @@
 
 // const extractBillSuma = (data: PDFExtractText[]) => {
 //   const words = groupWordsByRows(data);
-
+// todo
+// 1. function to trim whitespace numbers like "- 12312323"
+// x.replace(/-\s*(\d+)/, '-$1')
 //   const details = words.reduce(
 //     (prev, curr) => {
 //       // if (isReferintaLine) {
