@@ -17,13 +17,11 @@ const extractBillReferinta = (data: PDFExtractText[]) => {
   const details = words.reduce(
     (prev, curr) => {
       if (isReferintaLineStep >= 2) {
-        console.log(curr);
         // we check to see if there is additional info after referinta and not started the table lines
         if (
           curr.match(endReferintaRegex) &&
           curr.match(endReferintaRegex)?.[0]
         ) {
-          console.log(curr.match(endReferintaRegex))
           isReferintaLineStep = 0;
         } else {
           // console.log(curr)

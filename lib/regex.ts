@@ -38,6 +38,8 @@ export const thirdLineSumaRegex =
   /Suma\s*de\s*plata\s*:?(-?\s*\d+(\.\d+)*,\d+)\s*([A-Z]+)/;
 
 // Other bill suma related fields
+export const currencySumaRegex =
+  /Curs\s*de\s*schimb\s*(\d+(\.\d+)*,\d+)\s*Suma\s*de\s*plata\s*:?(-?\s*\d+(\.\d+)*,\d+)\s*([A-Z]+)/;
 export const greutateBrutaRegex =
   /Greutate\s*bruta\s*:?\s*(\d+(\.\d+)*,\d+)\s*([A-Z]+)/;
 export const greutateNetaRegex =

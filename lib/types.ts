@@ -36,3 +36,31 @@ export interface BillLine {
   lineVamalCode: string | null;
   lineAdditionalInfo: string | null;
 }
+
+export interface BillSuma {
+  sume: Suma[];
+  currencyExchangeRate: string | null;
+  greutateBruta: {
+    value: string | null;
+    UM: string | null;
+  };
+  greutateNeta: {
+    value: string | null;
+    UM: string | null;
+  };
+  volum: {
+    value: string | null;
+    UM: string | null;
+  };
+  endDateOfPay: string | null;
+  shipmentConditions: string | null;
+}
+
+export interface Suma {
+  sumaNetaTotala: string | null;
+  tvaCota: string | null;
+  valoareFaraTva1: string | null;
+  valoareFaraTva2: string | null;
+  sumaDePlata: string | null;
+  currency: string | null;
+}
