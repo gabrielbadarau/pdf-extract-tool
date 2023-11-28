@@ -37,7 +37,7 @@ export const secondLineSumaRegex =
 export const thirdLineSumaRegex =
   /Suma\s*de\s*plata\s*:?(-?\s*\d+(\.\d+)*,\d+)\s*([A-Z]+)/;
 
-// Other bill suma related fields
+// Other extra fields
 export const currencySumaRegex =
   /Curs\s*de\s*schimb\s*(\d+(\.\d+)*,\d+)\s*Suma\s*de\s*plata\s*:?(-?\s*\d+(\.\d+)*,\d+)\s*([A-Z]+)/;
 export const greutateBrutaRegex =
@@ -49,5 +49,7 @@ export const endDateOfPayRegex =
   /Conditii\s*de\s*plata\s*:?\s*Până\s*la\s*(\d{2}\.\d{2}\.\d{4})/;
 export const conditiiDeLivrare = /Conditii\s*de\s*livrare\s*:?\s*(.+)/;
 export const complicatedTaraDeOrigineLineRegex =
-  /([A-Z]+)\s*([A-Za-z ]+)\s*(Greutate|Volum)(.+)?/;
-export const simpleTaraDeOrigineLineRegex = /([A-Z]+)\s*([A-Za-z ]+)/;
+  /([A-Z]+)\s+(.+)\s*(Greutate|Volum)(.+)?/;
+export const simpleTaraDeOrigineLineRegex = /([A-Z]+)\s+(.+)/;
+export const findStartTaraDeOrigine =
+  /Tara\s*origine\s*\(TdO\)\s*:?\s*Greutate\s*-?\s*Volum/;

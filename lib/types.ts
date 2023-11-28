@@ -39,6 +39,18 @@ export interface BillLine {
 
 export interface BillSuma {
   sume: Suma[];
+}
+
+export interface Suma {
+  sumaNetaTotala: string | null;
+  tvaCota: string | null;
+  valoareFaraTva1: string | null;
+  valoareFaraTva2: string | null;
+  sumaDePlata: string | null;
+  currency: string | null;
+}
+
+export interface BillExtraInfo {
   currencyExchangeRate: string | null;
   greutateBruta: {
     value: string | null;
@@ -54,13 +66,10 @@ export interface BillSuma {
   };
   endDateOfPay: string | null;
   shipmentConditions: string | null;
+  originCountries: Country[];
 }
 
-export interface Suma {
-  sumaNetaTotala: string | null;
-  tvaCota: string | null;
-  valoareFaraTva1: string | null;
-  valoareFaraTva2: string | null;
-  sumaDePlata: string | null;
-  currency: string | null;
+export interface Country {
+  adnotation: string | null;
+  value: string | null;
 }
