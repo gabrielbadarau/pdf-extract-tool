@@ -2,17 +2,43 @@ import { PDFExtractText } from 'pdf.js-extract';
 
 import groupWordsByRows from '@/actions/group-words-by-row';
 import { BillReferinta } from '@/lib/types';
-import { findBeginingOfReferintaRegex, referintaLineRegex } from '@/lib/regex';
+import {
+  endReferintaRegex,
+  findBeginingOfReferintaRegex,
+  referintaLineRegex,
+} from '@/lib/regex';
 
 const extractBillReferinta = (data: PDFExtractText[]) => {
   const words = groupWordsByRows(data);
 
   // state of the referinta
-  let isReferintaLine = false;
+  let isReferintaLineStep = 0;
 
   const details = words.reduce(
     (prev, curr) => {
-      if (isReferintaLine) {
+      if (isReferintaLineStep >= 2) {
+        console.log(curr);
+        // we check to see if there is additional info after referinta and not started the table lines
+        if (
+          curr.match(endReferintaRegex) &&
+          curr.match(endReferintaRegex)?.[0]
+        ) {
+          console.log(curr.match(endReferintaRegex))
+          isReferintaLineStep = 0;
+        } else {
+          // console.log(curr)
+          if (prev.referintaAdditionalInfo) {
+            prev.referintaAdditionalInfo =
+              prev.referintaAdditionalInfo + ' ' + curr;
+          } else {
+            prev.referintaAdditionalInfo = curr;
+          }
+
+          isReferintaLineStep++;
+        }
+      }
+
+      if (isReferintaLineStep === 1) {
         const matchReferintaLine = curr.match(referintaLineRegex);
 
         if (matchReferintaLine?.length) {
@@ -22,11 +48,11 @@ const extractBillReferinta = (data: PDFExtractText[]) => {
           prev.referintaClientDinData = matchReferintaLine[4]?.trim() || null;
         }
 
-        isReferintaLine = false;
+        isReferintaLineStep++;
       }
 
       if (curr.match(findBeginingOfReferintaRegex)?.length) {
-        isReferintaLine = true;
+        isReferintaLineStep = 1;
       }
 
       return prev;
@@ -36,6 +62,7 @@ const extractBillReferinta = (data: PDFExtractText[]) => {
       referintaFurnizorDinData: null,
       referintaClient: null,
       referintaClientDinData: null,
+      referintaAdditionalInfo: null,
     } as BillReferinta
   );
 

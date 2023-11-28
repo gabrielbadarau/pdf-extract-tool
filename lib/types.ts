@@ -19,6 +19,7 @@ export interface BillReferinta {
   referintaFurnizorDinData: string | null;
   referintaClient: string | null;
   referintaClientDinData: string | null;
+  referintaAdditionalInfo: string | null;
 }
 
 export interface BillLine {

@@ -18,6 +18,8 @@ export const findBeginingOfReferintaRegex =
   /Referinta\s*furnizor\s*Din\s*data\s*:?\s*Referinta\s*client\s*Din\s*data\s*:?/;
 export const referintaLineRegex =
   /^(\d+)\s+(\d{2}\.\d{2}\.\d{4})?\s?([^.]+)\s?(\d{2}\.\d{2}\.\d{4})?$/;
+export const endReferintaRegex =
+  /(Poz.doc.)?\s*(Cod\s*material\/serviciu)?\s*(Descriere\s*material\s*sau\s*serviciu)?\s*(Cant.)?\s*(UM)?/;
 
 // Bill lines
 export const firstLineRegex =

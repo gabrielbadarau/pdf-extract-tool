@@ -34,7 +34,6 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
       if (lineStep >= 4) {
         // we check to see if we have a new begining of line => no more additional info
         if (curr.match(firstLineRegex)?.length) {
-          console.log('step 4 match, but first line', curr);
           // push object and reset values after, the code will execute at step 1 later in the code
           prev.push({ ...line });
           for (const property in line) {
@@ -61,7 +60,7 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
         } else {
           // additionalInfo continues on next line
           if (line.lineAdditionalInfo) {
-            line.lineAdditionalInfo = line.lineAdditionalInfo + curr;
+            line.lineAdditionalInfo = line.lineAdditionalInfo + ' ' + curr;
           } else {
             line.lineAdditionalInfo = curr;
           }
@@ -88,7 +87,7 @@ const extractBillLines = (pages: PDFExtractPage[]) => {
           !curr.match(firstLineRegex)
         ) {
           if (line.lineAdditionalInfo) {
-            line.lineAdditionalInfo = line.lineAdditionalInfo + curr;
+            line.lineAdditionalInfo = line.lineAdditionalInfo + ' ' + curr;
           } else {
             line.lineAdditionalInfo = curr;
           }
